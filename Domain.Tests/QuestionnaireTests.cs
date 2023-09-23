@@ -8,15 +8,15 @@ namespace Domain.Tests;
 public class QuestionnaireTests
 {
     [Fact]
-    public void Questionnaire_has_OptionAnswers()
+    public void Questionnaire_has_TextOptionAnswers()
     {
         Questionnaire questionnaire = new Questionnaire(
             GetSampleUserId()
             , "What should I do if my family want me out of the house?"
             , new List<OptionAnswer>
             {
-                new OptionAnswer("Revolt"),
-                new OptionAnswer("Obey")
+                new TextOptionAnswer("Revolt"),
+                new TextOptionAnswer("Obey")
             }
             , new List<QuestionTagId>());
 
@@ -67,6 +67,8 @@ public class QuestionnaireTests
         var leastVoted = questionnaire.GetLeastVoted();
         Assert.Equal(new OptionAnswer("Sister"), leastVoted.Key);
         Assert.Equal(1, leastVoted.Value);
+        
+        Assert.Equal(3, questionnaire.GetPoll().Count());
     }
 
     [Fact]
