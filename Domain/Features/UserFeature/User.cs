@@ -1,4 +1,3 @@
-using System.Collections;
 using Domain.Features.QuestionFeature;
 using Domain.Features.QuestionnaireFeature;
 
@@ -22,7 +21,6 @@ public class User
     private List<OpenQuestion> OpenQuestions { get; set; } = new();
     private List<Questionnaire> Questionnaires { get; set; } = new();
 
-
     public IEnumerable<OpenQuestion> GetOpenQuestion() => OpenQuestions.ToList();
     
     public void AskOpenQuestion(OpenQuestion openQuestion)
@@ -30,7 +28,7 @@ public class User
         OpenQuestions.Add(openQuestion);
     }
         
-    public IEnumerable GetQuestionnaires() => Questionnaires.ToList();
+    public IEnumerable<Questionnaire> GetQuestionnaires() => Questionnaires.ToList();
 
     public void AskQuestionnaire(Questionnaire questionnaire)
     {

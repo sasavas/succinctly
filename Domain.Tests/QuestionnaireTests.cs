@@ -1,6 +1,7 @@
 using Domain.Features.QuestionnaireFeature;
 using Domain.Features.QuestionnaireFeature.Exceptions;
 using Domain.Features.TagFeature;
+using Domain.Features.UserFeature;
 
 namespace Domain.Tests;
 
@@ -10,7 +11,8 @@ public class QuestionnaireTests
     public void Questionnaire_has_OptionAnswers()
     {
         Questionnaire questionnaire = new Questionnaire(
-            "What should I do if my family want me out of the house?"
+            GetSampleUser()
+            , "What should I do if my family want me out of the house?"
             , new List<OptionAnswer>
             {
                 new OptionAnswer("Revolt"),
@@ -28,7 +30,8 @@ public class QuestionnaireTests
         var action = () =>
         {
             Questionnaire questionnaire = new Questionnaire(
-                "What should I do if my family want me out of the house?"
+                GetSampleUser()
+                , "What should I do if my family want me out of the house?"
                 , new List<OptionAnswer> { new OptionAnswer("Revolt") }
                 , new List<QuestionTag>());
         };
@@ -40,14 +43,15 @@ public class QuestionnaireTests
     public void Questionnaire_has_poll()
     {
         Questionnaire questionnaire = new Questionnaire(
-            "Who do you like more?"
+            GetSampleUser()
+            , "Who do you like more?"
             , new List<OptionAnswer>
             {
                 new OptionAnswer("Mother"),
                 new OptionAnswer("Father"),
                 new OptionAnswer("Sister")
             }
-            ,new List<QuestionTag>());
+            , new List<QuestionTag>());
 
         questionnaire.Vote("Mother");
         questionnaire.Vote("Mother");
@@ -69,14 +73,15 @@ public class QuestionnaireTests
     public void Questionnaire_has_tags()
     {
         Questionnaire questionnaire = new Questionnaire(
-            "Who do you like more?"
+            GetSampleUser()
+            , "Who do you like more?"
             , new List<OptionAnswer>
             {
                 new OptionAnswer("Mother"),
                 new OptionAnswer("Father"),
                 new OptionAnswer("Sister")
             }
-            , new List<QuestionTag>{new QuestionTag("Private Life")});
+            , new List<QuestionTag> { new QuestionTag("Private Life") });
 
         Assert.Single(questionnaire.GetTags());
     }
@@ -87,6 +92,7 @@ public class QuestionnaireTests
         var action = () =>
         {
             var questionnaire = new Questionnaire(
+                GetSampleUser(),
                 "Which dress should I buy?"
                 , new List<OptionAnswer>
                 {
@@ -97,4 +103,7 @@ public class QuestionnaireTests
 
         Assert.Throws<QuestionnaireMustHaveAtLeastTwoOptionAnswersException>(action);
     }
+
+    private static User GetSampleUser()
+        => new User("Ahmet", "Can", new EmailAddress("ahmet@can.com"), new UserName("ahmetc"));
 }

@@ -1,6 +1,7 @@
 using Domain.Features.BaseQuestionFeature;
 using Domain.Features.QuestionFeature.Options;
 using Domain.Features.TagFeature;
+using Domain.Features.UserFeature;
 
 namespace Domain.Features.QuestionFeature;
 
@@ -10,9 +11,10 @@ public class OpenQuestion : Question
     private List<OpenAnswer> Answers { get; set; } = new();
 
     public OpenQuestion(
-        string questionText, 
-        List<AnswerOption> answerOptions, 
-        List<QuestionTag> questionTags) : base(questionText, questionTags)
+        User user,
+        string questionText,
+        List<AnswerOption> answerOptions,
+        List<QuestionTag> questionTags) : base(user, questionText, questionTags)
     {
         AnswerOptions = answerOptions;
     }
@@ -22,9 +24,9 @@ public class OpenQuestion : Question
     public void Answer(string answerText)
     {
         var answer = OpenAnswer.Create(answerText);
-        
+
         AnswerOptions.ForEach(option => option.Assert(answer));
-        
+
         Answers.Add(answer);
     }
 }

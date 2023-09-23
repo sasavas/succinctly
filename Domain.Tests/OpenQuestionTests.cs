@@ -2,6 +2,7 @@ using Domain.Features.QuestionFeature;
 using Domain.Features.QuestionFeature.Exceptions;
 using Domain.Features.QuestionFeature.Options;
 using Domain.Features.TagFeature;
+using Domain.Features.UserFeature;
 
 namespace Domain.Tests;
 
@@ -11,6 +12,7 @@ public class OpenQuestionTests
     public void Open_Ended_Question_has_multiple_answers()
     {
         OpenQuestion question = new OpenQuestion(
+            GetSampleUser(),
             GetQuestionText()
             , new List<AnswerOption>()
             , new List<QuestionTag>());
@@ -25,6 +27,7 @@ public class OpenQuestionTests
     public void Open_Ended_Question_answer_texts_exceeding_the_set_limit_chars_throws_error()
     {
         OpenQuestion question = new OpenQuestion(
+            GetSampleUser(),
             GetQuestionText()
             , new List<AnswerOption> { new CharLimitOption(CharLimits.Short) }
             , new List<QuestionTag>());
@@ -39,6 +42,7 @@ public class OpenQuestionTests
     public void Question_Has_Tags()
     {
         OpenQuestion question = new OpenQuestion(
+            GetSampleUser(),
             GetQuestionText(),
             new List<AnswerOption>(),
             new List<QuestionTag>() { new QuestionTag("Science") });
@@ -50,4 +54,7 @@ public class OpenQuestionTests
 
     private static string GetQuestionText()
         => "I have tomato and lettuce only. What meal can I do with these?";
+
+    private static User GetSampleUser()
+        => new User("Ahmet", "Can", new EmailAddress("ahmet@can.com"), new UserName("ahmetc"));
 }

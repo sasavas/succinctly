@@ -28,13 +28,6 @@ public class UserTests
         Assert.Single(user.GetQuestionnaires());
     }
 
-    [Fact]
-    public void User_can_answer_questions()
-    {
-        var user = GetSampleUser();
-        
-    }
-
     private static User GetSampleUser()
     {
         return new User(
@@ -47,7 +40,8 @@ public class UserTests
     private static OpenQuestion GetOpenQuestion()
     {
         return new OpenQuestion(
-            "Some Question"
+            GetQuestionUser()
+            ,"Some Question?"
             , new List<AnswerOption>()
             , new List<QuestionTag>());
     }
@@ -55,12 +49,19 @@ public class UserTests
     private static Questionnaire GetQuestionnaire()
     {
         return new Questionnaire(
-            "What should I do if my family want me out of the house?"
+            GetQuestionUser()
+            ,"Some questionnaire?"
             , new List<OptionAnswer>
             {
                 new OptionAnswer("Revolt"),
                 new OptionAnswer("Obey")
             }
             , new List<QuestionTag>());
+    }
+
+    private static User GetQuestionUser()
+    {
+        return new User(
+            "Selim", "Oktay", new EmailAddress("test@test.com"), new UserName("selim"));
     }
 }

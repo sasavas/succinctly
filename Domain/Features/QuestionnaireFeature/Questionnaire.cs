@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using Domain.Features.BaseQuestionFeature;
 using Domain.Features.QuestionnaireFeature.Exceptions;
 using Domain.Features.TagFeature;
+using Domain.Features.UserFeature;
 
 namespace Domain.Features.QuestionnaireFeature;
 
@@ -11,9 +12,10 @@ public class Questionnaire : Question
     private Dictionary<OptionAnswer, int> Poll { get; init; }
 
     public Questionnaire(
+        User user,
         string questionText,
         List<OptionAnswer> optionAnswers,
-        List<QuestionTag> questionTags) : base(questionText, questionTags)
+        List<QuestionTag> questionTags) : base(user, questionText, questionTags)
     {
         if (optionAnswers.Count <= 1)
         {
