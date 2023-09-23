@@ -1,9 +1,10 @@
+using Domain.BaseTypes;
 using Domain.Features.QuestionFeature;
 using Domain.Features.QuestionnaireFeature;
 
 namespace Domain.Features.UserFeature;
 
-public class User
+public class User : Entity<UserId>
 {
     public User(string firstName, string lastName, EmailAddress email, UserName userName)
     {

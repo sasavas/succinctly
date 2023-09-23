@@ -5,19 +5,19 @@ namespace Domain.Features.BaseQuestionFeature;
 
 public abstract class Question
 {
-    protected Question(User user, string questionText, List<QuestionTag> tags)
+    protected Question(UserId userId, string questionText, List<QuestionTagId> tags)
     {
         QuestionText = questionText;
-        Tags = tags;
-        User = user;
+        TagIds = tags;
+        UserId = userId;
     }
 
-    private protected User User { get; set; }
+    private protected UserId UserId { get; set; }
 
     private protected string QuestionText { get; set; }
 
-    private protected List<QuestionTag> Tags { get; private set; }
-    public IEnumerable<QuestionTag> GetTags() => Tags.ToList();
+    private protected List<QuestionTagId> TagIds { get; private set; }
+    public IEnumerable<QuestionTagId> GetTags() => TagIds.ToList();
 
     public IEnumerable<User> GetUserLikes() => UserLikes.ToList();
     private List<User> UserLikes { get; set; } = new();

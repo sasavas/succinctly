@@ -1,10 +1,11 @@
+using Domain.BaseTypes;
 using Domain.Features.QuestionFeature.Exceptions;
 
 namespace Domain.Features.QuestionFeature.Options;
 
-public class CharLimitOption : AnswerOption
+public class CharLimitOption : Entity<int>, IAnswerOption
 {
-    public int CharLimit { get; private set; }
+    private int CharLimit { get; set; }
     
     public CharLimitOption(CharLimits limit)
     {
@@ -17,7 +18,7 @@ public class CharLimitOption : AnswerOption
         };
     }
 
-    public override void Assert(OpenAnswer answer)
+    public void Assert(OpenAnswer answer)
     {
         if (answer.AnswerText.Trim().Length > CharLimit)
         {

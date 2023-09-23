@@ -34,34 +34,30 @@ public class UserTests
             "Ahmet",
             "Can",
             new EmailAddress("ahmet@can.com"),
-            new UserName("ahmetc"));
+            new UserName("ahmet"));
     }
 
     private static OpenQuestion GetOpenQuestion()
     {
         return new OpenQuestion(
-            GetQuestionUser()
+            GetQuestionOwnerId()
             ,"Some Question?"
-            , new List<AnswerOption>()
-            , new List<QuestionTag>());
+            , new List<IAnswerOption>()
+            , new List<QuestionTagId>());
     }
 
     private static Questionnaire GetQuestionnaire()
     {
         return new Questionnaire(
-            GetQuestionUser()
+            GetQuestionOwnerId()
             ,"Some questionnaire?"
             , new List<OptionAnswer>
             {
                 new OptionAnswer("Revolt"),
                 new OptionAnswer("Obey")
             }
-            , new List<QuestionTag>());
+            , new List<QuestionTagId>());
     }
 
-    private static User GetQuestionUser()
-    {
-        return new User(
-            "Selim", "Oktay", new EmailAddress("test@test.com"), new UserName("selim"));
-    }
+    private static UserId GetQuestionOwnerId() => new UserId(new Guid());
 }

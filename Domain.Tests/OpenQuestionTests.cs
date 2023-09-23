@@ -12,10 +12,10 @@ public class OpenQuestionTests
     public void Open_Ended_Question_has_multiple_answers()
     {
         OpenQuestion question = new OpenQuestion(
-            GetSampleUser(),
+            new UserId(new Guid()),
             GetQuestionText()
-            , new List<AnswerOption>()
-            , new List<QuestionTag>());
+            , new List<IAnswerOption>()
+            , new List<QuestionTagId>());
 
         question.Answer("You can cook the tomato first and then add the lettuce," +
                         " finally a pinch of salt.");
@@ -27,10 +27,10 @@ public class OpenQuestionTests
     public void Open_Ended_Question_answer_texts_exceeding_the_set_limit_chars_throws_error()
     {
         OpenQuestion question = new OpenQuestion(
-            GetSampleUser(),
+            new UserId(new Guid()),
             GetQuestionText()
-            , new List<AnswerOption> { new CharLimitOption(CharLimits.Short) }
-            , new List<QuestionTag>());
+            , new List<IAnswerOption> { new CharLimitOption(CharLimits.Short) }
+            , new List<QuestionTagId>());
 
         var action = () => question.Answer("This is quite a long answer text for a reasonably simple question." +
                                            " You may consider setting a looser limit so that the user can actually answer.");
@@ -42,19 +42,15 @@ public class OpenQuestionTests
     public void Question_Has_Tags()
     {
         OpenQuestion question = new OpenQuestion(
-            GetSampleUser(),
+            new UserId(new Guid()),
             GetQuestionText(),
-            new List<AnswerOption>(),
-            new List<QuestionTag>() { new QuestionTag("Science") });
+            new List<IAnswerOption>(),
+            new List<QuestionTagId>() { new QuestionTagId(1)});
 
         Assert.Single(question.GetTags());
-        Assert.Equal("Science", question.GetTags().First().TagText);
     }
 
 
     private static string GetQuestionText()
         => "I have tomato and lettuce only. What meal can I do with these?";
-
-    private static User GetSampleUser()
-        => new User("Ahmet", "Can", new EmailAddress("ahmet@can.com"), new UserName("ahmetc"));
 }

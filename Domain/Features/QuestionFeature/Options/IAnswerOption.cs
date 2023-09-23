@@ -1,8 +1,9 @@
+using Domain.BaseTypes;
 using Domain.Features.QuestionFeature.Exceptions;
 
 namespace Domain.Features.QuestionFeature.Options;
 
-public abstract class AnswerOption
+public interface IAnswerOption
 {
     /// <summary>
     /// Throws exception if the option condition fails.

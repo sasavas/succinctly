@@ -12,10 +12,10 @@ public class Questionnaire : Question
     private Dictionary<OptionAnswer, int> Poll { get; init; }
 
     public Questionnaire(
-        User user,
+        UserId userId,
         string questionText,
         List<OptionAnswer> optionAnswers,
-        List<QuestionTag> questionTags) : base(user, questionText, questionTags)
+        List<QuestionTagId> questionTagIds) : base(userId, questionText, questionTagIds)
     {
         if (optionAnswers.Count <= 1)
         {

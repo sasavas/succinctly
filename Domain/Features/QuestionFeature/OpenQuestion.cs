@@ -7,14 +7,14 @@ namespace Domain.Features.QuestionFeature;
 
 public class OpenQuestion : Question
 {
-    private List<AnswerOption> AnswerOptions { get; set; }
+    private List<IAnswerOption> AnswerOptions { get; set; }
     private List<OpenAnswer> Answers { get; set; } = new();
 
     public OpenQuestion(
-        User user,
+        UserId userId,
         string questionText,
-        List<AnswerOption> answerOptions,
-        List<QuestionTag> questionTags) : base(user, questionText, questionTags)
+        List<IAnswerOption> answerOptions,
+        List<QuestionTagId> questionTags) : base(userId, questionText, questionTags)
     {
         AnswerOptions = answerOptions;
     }
