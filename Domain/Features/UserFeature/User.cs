@@ -19,20 +19,19 @@ public class User : Entity<UserId>
     public EmailAddress Email { get; set; }
     public UserName UserName { get; set; }
 
-    private List<OpenQuestion> OpenQuestions { get; set; } = new();
-    private List<Questionnaire> Questionnaires { get; set; } = new();
-
-    public IEnumerable<OpenQuestion> GetOpenQuestion() => OpenQuestions.ToList();
+    public IEnumerable<OpenQuestion> OpenQuestions => _openQuestions.ToList();
+    private List<OpenQuestion> _openQuestions = new();
+    
+    public IEnumerable<Questionnaire> Questionnaires => _questionnaires.ToList();
+    private List<Questionnaire> _questionnaires = new();
     
     public void AskOpenQuestion(OpenQuestion openQuestion)
     {
-        OpenQuestions.Add(openQuestion);
+        _openQuestions.Add(openQuestion);
     }
-        
-    public IEnumerable<Questionnaire> GetQuestionnaires() => Questionnaires.ToList();
-
+    
     public void AskQuestionnaire(Questionnaire questionnaire)
     {
-        Questionnaires.Add(questionnaire);
+        _questionnaires.Add(questionnaire);
     }
 }

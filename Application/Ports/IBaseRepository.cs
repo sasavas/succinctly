@@ -8,5 +8,5 @@ public interface IBaseRepository<TEntity, TId>
      TEntity Update(TEntity entity);
      TId Delete(TId id);
      TEntity Get(TId id);
-     IEnumerable<TEntity> GetList(Expression<Func<TEntity, bool>> filter);
+     IEnumerable<TEntity> GetList(Expression<Func<TEntity, bool>>? filter = null);
 }

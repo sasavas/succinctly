@@ -85,7 +85,7 @@ public class QuestionnaireTests
             }
             , new List<QuestionTagId> { new QuestionTagId(2) });
 
-        Assert.Single(questionnaire.GetTags());
+        Assert.Single(questionnaire.TagIds);
     }
 
     [Fact]

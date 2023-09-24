@@ -7,26 +7,36 @@ namespace Domain.Features.QuestionFeature;
 
 public class OpenQuestion : Question
 {
-    private List<IAnswerOption> AnswerOptions { get; set; }
-    private List<OpenAnswer> Answers { get; set; } = new();
-
     public OpenQuestion(
         UserId userId,
         string questionText,
-        List<IAnswerOption> answerOptions,
-        List<QuestionTagId> questionTags) : base(userId, questionText, questionTags)
+        CharLimitOption charLimitOption,
+        List<QuestionTagId> questionTagIds) : base(userId, questionText, questionTagIds)
     {
-        AnswerOptions = answerOptions;
+        _charLimitOption = charLimitOption;
     }
 
-    public IEnumerable<OpenAnswer> GetAnswers() => Answers.ToList();
+    private IEnumerable<IAnswerOption> AnswerOptions
+        => new List<IAnswerOption>()
+        {
+            _charLimitOption,
+        };
+
+    private readonly CharLimitOption _charLimitOption;
+
+    public IEnumerable<OpenAnswer> Answers => _answers.ToList();
+    private readonly ICollection<OpenAnswer> _answers = new List<OpenAnswer>();
+
 
     public void Answer(string answerText)
     {
         var answer = OpenAnswer.Create(answerText);
 
-        AnswerOptions.ForEach(option => option.Assert(answer));
+        foreach (var answerOption in AnswerOptions)
+        {
+            answerOption.Assert(answer);
+        }
 
-        Answers.Add(answer);
+        _answers.Add(answer);
     }
 }

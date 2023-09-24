@@ -15,7 +15,7 @@ public class UserTests
 
         user.AskOpenQuestion(GetOpenQuestion());
 
-        Assert.Single(user.GetOpenQuestion());
+        Assert.Single(user.OpenQuestions);
     }
 
     [Fact]
@@ -25,7 +25,7 @@ public class UserTests
 
         user.AskQuestionnaire(GetQuestionnaire());
 
-        Assert.Single(user.GetQuestionnaires());
+        Assert.Single(user.Questionnaires);
     }
 
     private static User GetSampleUser()
@@ -42,7 +42,7 @@ public class UserTests
         return new OpenQuestion(
             GetQuestionOwnerId()
             ,"Some Question?"
-            , new List<IAnswerOption>()
+            , new CharLimitOption(CharLimits.Short)
             , new List<QuestionTagId>());
     }
 

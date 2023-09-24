@@ -3,6 +3,7 @@ namespace Domain.Features.QuestionFeature;
 public class OpenAnswer
 {
     public string AnswerText { get; set; }
+    public OpenQuestion Question { get; private set; }
 
     private OpenAnswer(string answerText)
     {
