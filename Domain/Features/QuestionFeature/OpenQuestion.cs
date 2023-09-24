@@ -13,29 +13,30 @@ public class OpenQuestion : Question
     }
     
     public OpenQuestion(
-        UserId userId,
+        User user,
         string questionText,
         CharLimitOption charLimitOption,
-        List<QuestionTag> questionTags) : base(userId, questionText, questionTags)
+        List<TopicTag> questionTags) : base(user, questionText, questionTags)
     {
-        _charLimitOption = charLimitOption;
+        CharLimitOption = charLimitOption;
     }
 
     private IEnumerable<IAnswerOption> AnswerOptions
         => new List<IAnswerOption>()
         {
-            _charLimitOption,
+            CharLimitOption,
         };
 
-    private readonly CharLimitOption _charLimitOption;
+    public Guid UserId { get; private set; }
+
+    public readonly CharLimitOption CharLimitOption;
 
     public IEnumerable<OpenAnswer> Answers => _answers.ToList();
     private readonly ICollection<OpenAnswer> _answers = new List<OpenAnswer>();
-
-
+    
     public void Answer(string answerText)
     {
-        var answer = OpenAnswer.Create(answerText);
+        var answer = new OpenAnswer(this, answerText);
 
         foreach (var answerOption in AnswerOptions)
         {

@@ -2,7 +2,7 @@ using Domain.Features.TagFeature;
 
 namespace Application.Ports;
 
-public interface IQuestionTagRepository : IBaseRepository<QuestionTag, QuestionTagId>
+public interface IQuestionTagRepository : IBaseRepository<TopicTag, TopicTagId>
 {
     
 }

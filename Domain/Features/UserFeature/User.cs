@@ -4,10 +4,11 @@ using Domain.Features.QuestionnaireFeature;
 
 namespace Domain.Features.UserFeature;
 
-public class User : Entity<UserId>
+public class User : Entity<Guid>
 {
     public User(string firstName, string lastName, EmailAddress email, UserName userName)
     {
+        Id = Guid.NewGuid();
         FirstName = firstName;
         LastName = lastName;
         Email = email;
@@ -18,12 +19,11 @@ public class User : Entity<UserId>
     public string LastName { get; set; }
     public EmailAddress Email { get; set; }
     public UserName UserName { get; set; }
+    private List<OpenQuestion> _openQuestions = new();
+    private List<Questionnaire> _questionnaires = new();
 
     public IEnumerable<OpenQuestion> OpenQuestions => _openQuestions.ToList();
-    private List<OpenQuestion> _openQuestions = new();
-    
     public IEnumerable<Questionnaire> Questionnaires => _questionnaires.ToList();
-    private List<Questionnaire> _questionnaires = new();
     
     public void AskOpenQuestion(OpenQuestion openQuestion)
     {

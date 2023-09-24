@@ -11,21 +11,21 @@ public abstract class Question : Entity<long>
         
     }
     
-    protected Question(UserId userId, string questionText, List<QuestionTag> tags)
+    protected Question(User user, string questionText, List<TopicTag> tags)
     {
-        UserId = userId;
+        User = user;
         QuestionText = questionText;
         _tags = tags;
     }
 
-    public UserId UserId { get; private set; }
+    public User User { get; private set; }
 
     public string QuestionText { get; private set; }
 
-    public IEnumerable<QuestionTag> TagIds => _tags.ToList();
-    private protected readonly List<QuestionTag> _tags;
+    public IEnumerable<TopicTag> Tags => _tags.ToList();
+    private protected readonly List<TopicTag> _tags;
 
-    public IEnumerable<User> UserLikes => _userLikes.ToList();
+    public IEnumerable<User> Users => _userLikes.ToList();
     private readonly List<User> _userLikes = new();
 
     public void UserLike(User user)

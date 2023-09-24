@@ -8,7 +8,7 @@ namespace Application.UseCases;
 
 public record OpenQuestionInfoDto(
     IEnumerable<CharLimitOption> CharLimitOptions,
-    IEnumerable<QuestionTag> QuestionTags
+    IEnumerable<TopicTag> QuestionTags
 );
 
 public record GetOpenQuestionInfoRequest : IRequest<OpenQuestionInfoDto>;

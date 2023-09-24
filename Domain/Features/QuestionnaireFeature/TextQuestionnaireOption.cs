@@ -2,9 +2,9 @@ using Domain.Features.QuestionFeature.Exceptions;
 
 namespace Domain.Features.QuestionnaireFeature;
 
-public class TextOptionAnswer : OptionAnswer
+public class TextQuestionnaireOption : QuestionnaireOption
 {
-    public TextOptionAnswer(string answerText) : base(answerText)
+    public TextQuestionnaireOption(string answerText) : base(answerText)
     {
         if (answerText.Length > 127)
         {

@@ -2,11 +2,12 @@ using Domain.BaseTypes;
 
 namespace Domain.Features.QuestionnaireFeature;
 
-public class OptionAnswer : ValueObject
+public class QuestionnaireOption : ValueObject
 {
     public string Value { get; protected init; }
+    public Questionnaire Questionnaire { get; private set; }
 
-    public OptionAnswer(string value)
+    public QuestionnaireOption(string value)
     {
         Value = value;
     }

@@ -1,17 +1,15 @@
+using Domain.BaseTypes;
+
 namespace Domain.Features.QuestionFeature;
 
-public class OpenAnswer
+public class OpenAnswer : Entity<long>
 {
-    public string AnswerText { get; set; }
+    public string AnswerText { get; private set; }
     public OpenQuestion Question { get; private set; }
 
-    private OpenAnswer(string answerText)
+    public OpenAnswer( OpenQuestion question, string answerText)
     {
         this.AnswerText = answerText;
-    }
-
-    public static OpenAnswer Create(string answerText)
-    {
-        return new OpenAnswer(answerText);
+        Question = question;
     }
 }

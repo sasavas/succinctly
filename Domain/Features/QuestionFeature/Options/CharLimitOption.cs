@@ -5,7 +5,7 @@ namespace Domain.Features.QuestionFeature.Options;
 
 public class CharLimitOption : Entity<int>, IAnswerOption
 {
-    private int CharLimit { get; set; }
+    public int CharLimit { get; private set; }
     
     public CharLimitOption(CharLimits limit)
     {

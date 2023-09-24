@@ -11,10 +11,10 @@ public class Questionnaire : Question
     private Questionnaire(){}
     
     public Questionnaire(
-        UserId userId,
+        User user,
         string questionText,
-        List<OptionAnswer> optionAnswers,
-        List<QuestionTag> questionTags) : base(userId, questionText, questionTags)
+        List<QuestionnaireOption> optionAnswers,
+        List<TopicTag> questionTags) : base(user, questionText, questionTags)
     {
         if (optionAnswers.Count <= 1)
         {
@@ -27,24 +27,24 @@ public class Questionnaire : Question
         _poll = optionAnswers.ToDictionary(option => option, _ => 0);
     }
 
-    private readonly List<OptionAnswer> _answers;
-    private readonly Dictionary<OptionAnswer, int> _poll;
+    private readonly List<QuestionnaireOption> _answers;
+    private readonly Dictionary<QuestionnaireOption, int> _poll;
 
+    public Guid UserId { get; private set; }
+    public IEnumerable<QuestionnaireOption> QuestionnaireOptions => _answers.ToList();
 
-    public IEnumerable<OptionAnswer> GetOptionAnswers() => _answers.ToList();
-
-    public ReadOnlyDictionary<OptionAnswer, int> Poll
+    public ReadOnlyDictionary<QuestionnaireOption, int> Poll
         => _poll.ToDictionary(keyValue => keyValue.Key, keyValue => keyValue.Value).AsReadOnly();
 
     public void Vote(string option)
     {
-        var optionAnswer = new OptionAnswer(option);
+        var optionAnswer = new QuestionnaireOption(option);
         _poll[optionAnswer]++;
     }
 
-    public KeyValuePair<OptionAnswer, int> GetMostVoted()
+    public KeyValuePair<QuestionnaireOption, int> GetMostVoted()
         => _poll.MaxBy(keyValue => keyValue.Value);
 
-    public KeyValuePair<OptionAnswer, int> GetLeastVoted()
+    public KeyValuePair<QuestionnaireOption, int> GetLeastVoted()
         => _poll.MinBy(keyValue => keyValue.Value);
 }

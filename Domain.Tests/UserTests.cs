@@ -40,24 +40,25 @@ public class UserTests
     private static OpenQuestion GetOpenQuestion()
     {
         return new OpenQuestion(
-            GetQuestionOwnerId()
+            GetQuestionOwner()
             ,"Some Question?"
             , new CharLimitOption(CharLimits.Short)
-            , new List<QuestionTag>());
+            , new List<TopicTag>());
     }
 
     private static Questionnaire GetQuestionnaire()
     {
         return new Questionnaire(
-            GetQuestionOwnerId()
+            GetQuestionOwner()
             ,"Some questionnaire?"
-            , new List<OptionAnswer>
+            , new List<QuestionnaireOption>
             {
-                new OptionAnswer("Revolt"),
-                new OptionAnswer("Obey")
+                new QuestionnaireOption("Revolt"),
+                new QuestionnaireOption("Obey")
             }
-            , new List<QuestionTag>());
+            , new List<TopicTag>());
     }
 
-    private static UserId GetQuestionOwnerId() => new UserId(new Guid());
+    private static User GetQuestionOwner()
+        => new User("Ali", "Can", new EmailAddress("test@test.com"), new UserName("user2"));
 }

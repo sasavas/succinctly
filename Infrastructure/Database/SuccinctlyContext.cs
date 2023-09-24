@@ -1,5 +1,6 @@
 using Domain.Features.QuestionFeature;
 using Domain.Features.QuestionnaireFeature;
+using Domain.Features.UserFeature;
 using Infrastructure.Database.Configurations;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,5 +25,7 @@ public class SuccinctlyContext : DbContext
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.ApplyConfiguration(new OpenQuestionConfiguration());
+        modelBuilder.ApplyConfiguration(new UserConfiguration());
+        modelBuilder.ApplyConfiguration(new QuestionnaireConfiguration());
     }
 }

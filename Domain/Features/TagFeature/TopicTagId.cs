@@ -1,8 +1,8 @@
 namespace Domain.Features.TagFeature;
 
-public class QuestionTagId
+public class TopicTagId
 {
-    public QuestionTagId(int id)
+    public TopicTagId(int id)
     {
         Id = id;
     }

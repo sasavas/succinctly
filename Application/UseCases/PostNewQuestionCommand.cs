@@ -1,8 +1,6 @@
 using Application.Ports;
 using Application.Ports.OpenQuestionRepositories;
 using Domain.Features.QuestionFeature;
-using Domain.Features.TagFeature;
-using Domain.Features.UserFeature;
 using MediatR;
 
 namespace Application.UseCases;
@@ -19,26 +17,31 @@ public class PostNewQuestionHandler : IRequestHandler<PostNewQuestionCommand, Op
     private readonly IOpenQuestionRepository _openQuestionRepository;
     private readonly ICharLimitOptionRepository _charLimitOptionRepository;
     private readonly IQuestionTagRepository _questionTagRepository;
+    private readonly IUserRepository _userRepository;
 
     public PostNewQuestionHandler(
         IOpenQuestionRepository openQuestionRepository,
         ICharLimitOptionRepository charLimitOptionRepository,
-        IQuestionTagRepository questionTagRepository)
+        IQuestionTagRepository questionTagRepository,
+        IUserRepository userRepository)
     {
         _openQuestionRepository = openQuestionRepository;
         _charLimitOptionRepository = charLimitOptionRepository;
         _questionTagRepository = questionTagRepository;
+        _userRepository = userRepository;
     }
 
     public Task<OpenQuestion> Handle(PostNewQuestionCommand request, CancellationToken cancellationToken)
     {
         var charLimitOption = _charLimitOptionRepository.Get(request.CharLimitOptionId);
 
-        var questionTags = 
+        var questionTags =
             _questionTagRepository.GetList(t => request.TagIds.Contains(t.Id));
 
+        var user = _userRepository.Get(request.UserId);
+        
         OpenQuestion question = new OpenQuestion(
-            new UserId(request.UserId),
+            user,
             request.QuestionText,
             charLimitOption,
             questionTags.ToList()
