@@ -6,19 +6,24 @@ namespace Domain.Features.BaseQuestionFeature;
 
 public abstract class Question : Entity<long>
 {
-    protected Question(UserId userId, string questionText, List<QuestionTagId> tagIds)
+    protected Question()
+    {
+        
+    }
+    
+    protected Question(UserId userId, string questionText, List<QuestionTag> tags)
     {
         UserId = userId;
         QuestionText = questionText;
-        _tagIdIds = tagIds;
+        _tags = tags;
     }
 
     public UserId UserId { get; private set; }
 
     public string QuestionText { get; private set; }
 
-    public IEnumerable<QuestionTagId> TagIds => _tagIdIds.ToList();
-    private protected readonly List<QuestionTagId> _tagIdIds;
+    public IEnumerable<QuestionTag> TagIds => _tags.ToList();
+    private protected readonly List<QuestionTag> _tags;
 
     public IEnumerable<User> UserLikes => _userLikes.ToList();
     private readonly List<User> _userLikes = new();

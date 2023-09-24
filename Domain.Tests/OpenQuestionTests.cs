@@ -15,7 +15,7 @@ public class OpenQuestionTests
             new UserId(new Guid()),
             GetQuestionText()
             , new CharLimitOption(CharLimits.Short)
-            , new List<QuestionTagId>());
+            , new List<QuestionTag>());
 
         question.Answer("You can cook the tomato first and then add the lettuce," +
                         " finally a pinch of salt.");
@@ -30,7 +30,7 @@ public class OpenQuestionTests
             new UserId(new Guid()),
             GetQuestionText()
             ,  new CharLimitOption(CharLimits.Short)
-            , new List<QuestionTagId>());
+            , new List<QuestionTag>());
 
         var action = () => question.Answer("This is quite a long answer text for a reasonably simple question." +
                                            " You may consider setting a looser limit so that the user can actually answer.");
@@ -45,7 +45,7 @@ public class OpenQuestionTests
             new UserId(new Guid()),
             GetQuestionText(),
             new CharLimitOption(CharLimits.Short),
-            new List<QuestionTagId>() { new QuestionTagId(1)});
+            new List<QuestionTag>() { new QuestionTag("test")});
 
         Assert.Single(question.TagIds);
     }

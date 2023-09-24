@@ -1,6 +1,8 @@
+using Domain.BaseTypes;
+
 namespace Domain.Features.TagFeature;
 
-public class QuestionTag
+public class QuestionTag : Entity<int>
 {
     public QuestionTag(string tagText)
     {

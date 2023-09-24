@@ -18,7 +18,7 @@ public class QuestionnaireTests
                 new TextOptionAnswer("Revolt"),
                 new TextOptionAnswer("Obey")
             }
-            , new List<QuestionTagId>());
+            , new List<QuestionTag>());
 
         Assert.Equal(2, questionnaire.GetOptionAnswers().Count());
         Assert.Equal("Revolt", questionnaire.GetOptionAnswers().First().Value);
@@ -33,7 +33,7 @@ public class QuestionnaireTests
                 GetSampleUserId()
                 , "What should I do if my family want me out of the house?"
                 , new List<OptionAnswer> { new OptionAnswer("Revolt") }
-                , new List<QuestionTagId>());
+                , new List<QuestionTag>());
         };
 
         Assert.Throws<QuestionnaireMustHaveAtLeastTwoOptionAnswersException>(action);
@@ -51,7 +51,7 @@ public class QuestionnaireTests
                 new OptionAnswer("Father"),
                 new OptionAnswer("Sister")
             }
-            , new List<QuestionTagId>());
+            , new List<QuestionTag>());
 
         questionnaire.Vote("Mother");
         questionnaire.Vote("Mother");
@@ -68,7 +68,7 @@ public class QuestionnaireTests
         Assert.Equal(new OptionAnswer("Sister"), leastVoted.Key);
         Assert.Equal(1, leastVoted.Value);
         
-        Assert.Equal(3, questionnaire.GetPoll().Count());
+        Assert.Equal(3, questionnaire.Poll.Count);
     }
 
     [Fact]
@@ -83,7 +83,7 @@ public class QuestionnaireTests
                 new OptionAnswer("Father"),
                 new OptionAnswer("Sister")
             }
-            , new List<QuestionTagId> { new QuestionTagId(2) });
+            , new List<QuestionTag> { new QuestionTag("Test") });
 
         Assert.Single(questionnaire.TagIds);
     }
@@ -100,7 +100,7 @@ public class QuestionnaireTests
                 {
                     new ImageOptionAnswer("path/to/image")
                 }
-                , new List<QuestionTagId>());
+                , new List<QuestionTag>());
         };
 
         Assert.Throws<QuestionnaireMustHaveAtLeastTwoOptionAnswersException>(action);

@@ -7,11 +7,16 @@ namespace Domain.Features.QuestionFeature;
 
 public class OpenQuestion : Question
 {
+    private OpenQuestion()
+    {
+        
+    }
+    
     public OpenQuestion(
         UserId userId,
         string questionText,
         CharLimitOption charLimitOption,
-        List<QuestionTagId> questionTagIds) : base(userId, questionText, questionTagIds)
+        List<QuestionTag> questionTags) : base(userId, questionText, questionTags)
     {
         _charLimitOption = charLimitOption;
     }

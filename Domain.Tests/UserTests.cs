@@ -43,7 +43,7 @@ public class UserTests
             GetQuestionOwnerId()
             ,"Some Question?"
             , new CharLimitOption(CharLimits.Short)
-            , new List<QuestionTagId>());
+            , new List<QuestionTag>());
     }
 
     private static Questionnaire GetQuestionnaire()
@@ -56,7 +56,7 @@ public class UserTests
                 new OptionAnswer("Revolt"),
                 new OptionAnswer("Obey")
             }
-            , new List<QuestionTagId>());
+            , new List<QuestionTag>());
     }
 
     private static UserId GetQuestionOwnerId() => new UserId(new Guid());

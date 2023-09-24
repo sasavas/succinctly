@@ -8,14 +8,13 @@ namespace Domain.Features.QuestionnaireFeature;
 
 public class Questionnaire : Question
 {
-    private List<OptionAnswer> Answers { get; set; }
-    private Dictionary<OptionAnswer, int> Poll { get; init; }
-
+    private Questionnaire(){}
+    
     public Questionnaire(
         UserId userId,
         string questionText,
         List<OptionAnswer> optionAnswers,
-        List<QuestionTagId> questionTagIds) : base(userId, questionText, questionTagIds)
+        List<QuestionTag> questionTags) : base(userId, questionText, questionTags)
     {
         if (optionAnswers.Count <= 1)
         {
@@ -23,25 +22,29 @@ public class Questionnaire : Question
                 "Questionnaire must have at least two option answers");
         }
 
-        Answers = optionAnswers;
+        _answers = optionAnswers;
 
-        Poll = optionAnswers.ToDictionary(option => option, _ => 0);
+        _poll = optionAnswers.ToDictionary(option => option, _ => 0);
     }
 
-    public IEnumerable<OptionAnswer> GetOptionAnswers() => Answers.ToList();
+    private readonly List<OptionAnswer> _answers;
+    private readonly Dictionary<OptionAnswer, int> _poll;
 
-    public ReadOnlyDictionary<OptionAnswer, int> GetPoll()
-        => Poll.ToDictionary(keyValue => keyValue.Key, keyValue => keyValue.Value).AsReadOnly();
+
+    public IEnumerable<OptionAnswer> GetOptionAnswers() => _answers.ToList();
+
+    public ReadOnlyDictionary<OptionAnswer, int> Poll
+        => _poll.ToDictionary(keyValue => keyValue.Key, keyValue => keyValue.Value).AsReadOnly();
 
     public void Vote(string option)
     {
         var optionAnswer = new OptionAnswer(option);
-        Poll[optionAnswer]++;
+        _poll[optionAnswer]++;
     }
 
     public KeyValuePair<OptionAnswer, int> GetMostVoted()
-        => Poll.MaxBy(keyValue => keyValue.Value);
+        => _poll.MaxBy(keyValue => keyValue.Value);
 
     public KeyValuePair<OptionAnswer, int> GetLeastVoted()
-        => Poll.MinBy(keyValue => keyValue.Value);
+        => _poll.MinBy(keyValue => keyValue.Value);
 }
