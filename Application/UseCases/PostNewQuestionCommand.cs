@@ -1,6 +1,5 @@
-using Application.Ports;
+using Application.Ports.OpenQuestionRepositories;
 using Domain.Features.QuestionFeature;
-using Domain.Features.QuestionFeature.Options;
 using Domain.Features.TagFeature;
 using Domain.Features.UserFeature;
 using MediatR;
@@ -30,17 +29,13 @@ public class PostNewQuestionHandler : IRequestHandler<PostNewQuestionCommand, Op
     public Task<OpenQuestion> Handle(PostNewQuestionCommand request, CancellationToken cancellationToken)
     {
         var charLimitOption = _charLimitOptionRepository.Get(request.CharLimitOptionId);
-        var answerOptions = new List<IAnswerOption>
-        {
-            charLimitOption
-        };
 
         var questionTagIds = request.TagIds.Select(tag => new QuestionTagId(tag)).ToList();
 
         OpenQuestion question = new OpenQuestion(
             new UserId(request.UserId),
             request.QuestionText,
-            answerOptions,
+            charLimitOption,
             questionTagIds
         );
 
