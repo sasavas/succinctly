@@ -1,5 +1,4 @@
 using Application.Ports;
-using Application.Ports.OpenQuestionRepositories;
 using Domain.Features.QuestionFeature.Options;
 using Domain.Features.TagFeature;
 using MediatR;
@@ -15,23 +14,19 @@ public record GetOpenQuestionInfoRequest : IRequest<OpenQuestionInfoDto>;
 
 public class GetOpenQuestionInfoRequestHandler : IRequestHandler<GetOpenQuestionInfoRequest, OpenQuestionInfoDto>
 {
-    private readonly ICharLimitOptionRepository _charLimitOptionRepository;
-    private readonly IQuestionTagRepository _questionTagRepository;
+    private readonly ITopicTagRepository _topicTagRepository;
 
     public GetOpenQuestionInfoRequestHandler(
-        IOpenQuestionRepository openQuestionRepository,
-        ICharLimitOptionRepository charLimitOptionRepository,
-        IQuestionTagRepository questionTagRepository)
+        ITopicTagRepository topicTagRepository)
     {
-        _charLimitOptionRepository = charLimitOptionRepository;
-        _questionTagRepository = questionTagRepository;
+        _topicTagRepository = topicTagRepository;
     }
 
     public Task<OpenQuestionInfoDto> Handle(GetOpenQuestionInfoRequest request, CancellationToken cancellationToken)
     {
         return Task.FromResult(
             new OpenQuestionInfoDto(
-                _charLimitOptionRepository.GetList(), 
-                _questionTagRepository.GetList()));
+                CharLimitOption.CharLimitOptions, 
+                _topicTagRepository.GetList()));
     }
 }
