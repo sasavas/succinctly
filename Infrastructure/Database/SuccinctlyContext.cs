@@ -1,5 +1,6 @@
 using Domain.Features.QuestionFeature;
 using Domain.Features.QuestionnaireFeature;
+using Domain.Features.TagFeature;
 using Domain.Features.UserFeature;
 using Infrastructure.Database.Configurations;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +15,9 @@ public class SuccinctlyContext : DbContext
 
     public DbSet<OpenQuestion> OpenQuestions { get; set; } = null!;
     public DbSet<Questionnaire> Questionnaires { get; set; } = null!;
-
+    public DbSet<TopicTag> TopicTags { get; set; } = null!;
+    public DbSet<User> Users { get; set; } = null!;
+    
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         base.OnConfiguring(optionsBuilder);

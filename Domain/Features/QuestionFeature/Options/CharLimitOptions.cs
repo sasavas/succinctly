@@ -1,8 +1,8 @@
 namespace Domain.Features.QuestionFeature.Options;
 
-public enum CharLimits
+public enum CharLimitOptions
 {
-    Short,
+    Short = 1,
     Long,
     Relax,
 }

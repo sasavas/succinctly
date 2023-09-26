@@ -14,7 +14,7 @@ public class OpenQuestionTests
         OpenQuestion question = new OpenQuestion(
             GetOpenQuestionOwner(),
             GetQuestionText()
-            , new CharLimitOption(CharLimits.Short)
+            , new CharLimitOption(CharLimitOptions.Short)
             , new List<TopicTag>());
 
         question.Answer("You can cook the tomato first and then add the lettuce," +
@@ -29,7 +29,7 @@ public class OpenQuestionTests
         OpenQuestion question = new OpenQuestion(
             GetOpenQuestionOwner(),
             GetQuestionText()
-            ,  new CharLimitOption(CharLimits.Short)
+            ,  new CharLimitOption(CharLimitOptions.Short)
             , new List<TopicTag>());
 
         var action = () => question.Answer("This is quite a long answer text for a reasonably simple question." +
@@ -44,7 +44,7 @@ public class OpenQuestionTests
         OpenQuestion question = new OpenQuestion(
             GetOpenQuestionOwner(),
             GetQuestionText(),
-            new CharLimitOption(CharLimits.Short),
+            new CharLimitOption(CharLimitOptions.Short),
             new List<TopicTag>() { new TopicTag("test")});
 
         Assert.Single(question.Tags);

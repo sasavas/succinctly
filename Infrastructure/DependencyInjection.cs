@@ -1,4 +1,7 @@
+using Application.Ports;
+using Application.Ports.OpenQuestionRepositories;
 using Infrastructure.Database;
+using Infrastructure.Database.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -24,5 +27,9 @@ public static class DependencyInjection
                         "Include Error Detail=True;")
                     .UseSnakeCaseNamingConvention();
             });
+
+        services.AddScoped<IOpenQuestionRepository, OpenQuestionRepository>();
+        services.AddScoped<ITopicTagRepository, TopicTagRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
     }
 }

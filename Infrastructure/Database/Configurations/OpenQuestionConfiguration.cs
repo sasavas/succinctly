@@ -17,7 +17,7 @@ public class OpenQuestionConfiguration : IEntityTypeConfiguration<OpenQuestion>
             .Property(question => question.CharLimitOption)
             .HasConversion(
                 charLimit => charLimit.CharLimit,
-                limit => new CharLimitOption((CharLimits)limit));
+                limit => new CharLimitOption((CharLimitOptions)limit));
 
         builder
             .HasMany(question => question.Users)

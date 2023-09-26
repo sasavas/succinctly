@@ -42,7 +42,7 @@ public class UserTests
         return new OpenQuestion(
             GetQuestionOwner()
             ,"Some Question?"
-            , new CharLimitOption(CharLimits.Short)
+            , new CharLimitOption(CharLimitOptions.Short)
             , new List<TopicTag>());
     }
 

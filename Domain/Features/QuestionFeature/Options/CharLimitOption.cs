@@ -1,22 +1,33 @@
-using Domain.BaseTypes;
 using Domain.Features.QuestionFeature.Exceptions;
 
 namespace Domain.Features.QuestionFeature.Options;
 
-public class CharLimitOption : Entity<int>, IAnswerOption
+public class CharLimitOption : IAnswerOption
 {
+    public int Id { get; private set; }
     public int CharLimit { get; private set; }
-    
-    public CharLimitOption(CharLimits limit)
+
+    private CharLimitOption()
     {
-        CharLimit = limit switch
-        {
-            CharLimits.Short => 127,
-            CharLimits.Long => 512,
-            CharLimits.Relax => 1024,
-            _ => throw new ArgumentOutOfRangeException(nameof(limit), limit, null)
-        };
     }
+
+    public CharLimitOption(CharLimitOptions limitOption)
+    {
+        CharLimit = limitOption switch
+        {
+            Options.CharLimitOptions.Short => 127,
+            Options.CharLimitOptions.Long => 512,
+            Options.CharLimitOptions.Relax => 1024,
+            _ => throw new ArgumentOutOfRangeException(nameof(limitOption), limitOption, null)
+        };
+
+        Id = (int)limitOption;
+    }
+
+    public static IEnumerable<CharLimitOption> CharLimitOptions
+        => Enum.GetValues<CharLimitOptions>().Select(charLimits => new CharLimitOption(charLimits));
+
+    public static CharLimitOption GetById(int id) => new CharLimitOption((CharLimitOptions)id);
 
     public void Assert(OpenAnswer answer)
     {

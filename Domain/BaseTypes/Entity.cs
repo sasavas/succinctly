@@ -2,5 +2,5 @@ namespace Domain.BaseTypes;
 
 public class Entity<TId>
 {
-    public TId Id { get; private protected set; }
+    public TId Id { get; private protected init; } = default!;
 }

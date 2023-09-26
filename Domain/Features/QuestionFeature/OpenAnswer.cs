@@ -7,7 +7,11 @@ public class OpenAnswer : Entity<long>
     public string AnswerText { get; private set; }
     public OpenQuestion Question { get; private set; }
 
-    public OpenAnswer( OpenQuestion question, string answerText)
+    private OpenAnswer()
+    {
+    }
+
+    public OpenAnswer(OpenQuestion question, string answerText)
     {
         this.AnswerText = answerText;
         Question = question;
