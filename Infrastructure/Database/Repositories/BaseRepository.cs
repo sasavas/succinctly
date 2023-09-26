@@ -36,9 +36,9 @@ public class BaseRepository<TEntity, TId> : IBaseRepository<TEntity, TId>
             _context.Set<TEntity>().Remove(toDelete);
     }
 
-    public TEntity Get(TId id)
+    public TEntity? Get(TId id)
     {
-        throw new NotImplementedException();
+        return _context.Set<TEntity>().FirstOrDefault(entity => entity.Id.Equals(id));
     }
 
     public virtual IEnumerable<TEntity> GetList()
